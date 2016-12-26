@@ -1,0 +1,52 @@
+escape Super_L
+#warp on
+set border 0
+set winname class
+#msgwait 5
+
+unbind w
+bind semicolon colon
+bind colon exec
+bind T exec deepin-terminal
+bind t exec termite
+bind f exec ratpoison -c "echo Now Launching File Manager" && exec sunflower
+bind C exec ratpoison -c "echo Now Launching Chromium" && exec chromium
+bind c exec tabbed surf -e
+bind D exec rofi -show run
+bind g groups
+bind L exec xlock +usefirst
+bind w exec /usr/local/bin/window_select.sh
+bind d exec /usr/local/bin/ratMenu.sh
+#bind F3 exec ratpoison -c "echo Now Launching VLC Media Player" && exec vlc
+
+exec xsetroot -cursor_name left_ptr
+exec /usr/bin/rpws init 5 -k
+exec compton --backend glx --paint-on-overlay --vsync opengl-swc
+exec nitrogen --set-centered ~/Pictures/Wallpapers/wallpaper_arch.jpg
+exec ~/.lemonbar.sh | lemonbar -p -d -f "FontAwesome:size=8"
+#exec xdotool search . behave %@ mouse-enter windowfocus &
+
+### RPBar Settings below:
+#tell ratpoison to ignore rpbar
+unmanage rpbar
+# leave space for bars
+set padding 0 16 0 19
+# start rpbar 
+exec rpbar
+# hooks
+addhook switchwin exec rpbarsend
+addhook switchframe exec rpbarsend
+addhook switchgroup exec rpbarsend
+addhook deletewindow exec rpbarsend
+# RP versions >= 1.4.6 (from the git repo) have these hooks.
+# Recommended!
+addhook titlechanged exec rpbarsend
+addhook newwindow exec rpbarsend
+
+### Backlight & Audio
+definekey top XF86MonBrightnessUp exec xbacklight -inc 10
+definekey top XF86MonBrightnessDown exec xbacklight -dec 10
+definekey top XF86AudioLowerVolume exec pactl set-sink-volume 1 -5%
+definekey top XF86AudioRaiseVolume exec pactl set-sink-volume 1 +5%
+definekey top XF86AudioMute exec pactl set-sink-mute 1 toggle
+
