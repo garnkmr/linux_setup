@@ -5,24 +5,28 @@ set winname class
 #msgwait 5
 
 unbind w
+
+##Alt-tab
+definekey top M-Tab next
+definekey top M-ISO_Left_Tab prev
+
 bind semicolon colon
 bind colon exec
-bind T exec deepin-terminal
+bind T exec gnome-terminal
 bind t exec termite
-bind f exec ratpoison -c "echo Now Launching File Manager" && exec sunflower
+#bind f exec ratpoison -c "echo Now Launching File Manager" && exec sunflower
 bind C exec ratpoison -c "echo Now Launching Chromium" && exec chromium
-bind c exec tabbed surf -e
+#bind c exec tabbed surf -e
 bind D exec rofi -show run
 bind g groups
 bind L exec xlock +usefirst
 bind w exec /usr/local/bin/window_select.sh
 bind d exec /usr/local/bin/ratMenu.sh
-#bind F3 exec ratpoison -c "echo Now Launching VLC Media Player" && exec vlc
 
 exec xsetroot -cursor_name left_ptr
 exec /usr/bin/rpws init 5 -k
-exec compton --backend glx --paint-on-overlay --vsync opengl-swc
-exec nitrogen --set-centered ~/Pictures/Wallpapers/wallpaper_arch.jpg
+#exec compton --backend glx --paint-on-overlay --vsync opengl-swc
+exec nitrogen --set-centered ~/Pictures/Wallpapers/wallpaper-blue.jpg
 exec ~/.lemonbar.sh | lemonbar -p -d -f "FontAwesome:size=8"
 #exec xdotool search . behave %@ mouse-enter windowfocus &
 
