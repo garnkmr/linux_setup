@@ -14,9 +14,9 @@ bind semicolon colon
 bind colon exec
 bind T exec gnome-terminal
 bind t exec termite
-#bind f exec ratpoison -c "echo Now Launching File Manager" && exec sunflower
+bind f exec rox
+bind F exec fsearch
 bind C exec ratpoison -c "echo Now Launching Chromium" && exec chromium
-#bind c exec tabbed surf -e
 bind D exec rofi -show run
 bind g groups
 bind L exec xlock +usefirst
@@ -50,7 +50,7 @@ addhook newwindow exec rpbarsend
 ### Backlight & Audio
 definekey top XF86MonBrightnessUp exec xbacklight -inc 10
 definekey top XF86MonBrightnessDown exec xbacklight -dec 10
-definekey top XF86AudioLowerVolume exec pactl set-sink-volume 1 -5%
-definekey top XF86AudioRaiseVolume exec pactl set-sink-volume 1 +5%
-definekey top XF86AudioMute exec pactl set-sink-mute 1 toggle
+definekey top XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+definekey top XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+definekey top XF86AudioMute exec pactl set-sink-mute 0 toggle
 

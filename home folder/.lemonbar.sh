@@ -25,7 +25,7 @@ Wifi() {
 }
 
 Volume() {
-    VOLUME=$(pactl list sinks | perl -000ne 'if(/#1/){/(Volume:.*)/; print "$1\n"}' | awk '{print $5}')
+    VOLUME=$(pactl list sinks | perl -000ne 'if(/#0/){/(Volume:.*)/; print "$1\n"}' | awk '{print $5}')
     echo "$VOLUME"
 }
 
