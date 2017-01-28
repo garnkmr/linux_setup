@@ -18,10 +18,12 @@ bind f exec rox
 bind F exec fsearch
 bind C exec ratpoison -c "echo Now Launching Chromium" && exec chromium
 bind D exec rofi -show run
-bind g groups
+#bind g groups
+bind g exec /usr/local/bin/rofi-groups.sh
 bind L exec xlock +usefirst
 bind w exec /usr/local/bin/window_select.sh
-bind d exec /usr/local/bin/ratMenu.sh
+#bind d exec /usr/local/bin/ratMenu.sh
+bind d exec /usr/local/bin/rofi-dmenu.sh
 
 exec xsetroot -cursor_name left_ptr
 exec /usr/bin/rpws init 5 -k

@@ -38,24 +38,16 @@ Groups() {
     echo "`ratpoison -c groups | awk '/*/ {print substr($1,3)}'`"
 }
 
-termite() {
-    echo "%{A:Termite:} Terminal %{A} %{A:dde-file-manager:} Filer %{A}	"
-}
-
-cmustoggle() {
-    echo "%{A:cmus-remote -u:} PlayPause %{A}"
-}
-
 #This loop will fill a buffer with our infos, and output it to stdout.
 while :; do
     buf=""
     buf="${buf} %{c} $(Clock)"
-    buf="${buf} %{r} Vol: $(Volume) | "
-    buf="${buf} Brightness: $(Brightness) % | "
-    buf="${buf} Battery: $(Battery)"
-    buf="${buf} %{l} Workspace: $(Groups) | "
+    buf="${buf} %{r} ♪ $(Volume)"
+    buf="${buf} ◐ $(Brightness) %"
+    buf="${buf} ♥ $(Battery)"
+    buf="${buf} %{l} ❏ $(Groups) | "
     buf="${buf} RAM: $(RAM) | "
-    buf="${buf} Wifi: $(Wifi) "
+    buf="${buf} ◢ $(Wifi) "
     echo $buf
     
     sleep 1 # The HUD will be updated every second
