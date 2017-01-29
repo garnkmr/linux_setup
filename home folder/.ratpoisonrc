@@ -12,8 +12,8 @@ definekey top M-ISO_Left_Tab prev
 
 bind semicolon colon
 bind colon exec
-bind T exec gnome-terminal
-bind t exec termite
+bind T exec termite
+bind t exec terminology
 bind f exec rox
 bind F exec fsearch
 bind C exec ratpoison -c "echo Now Launching Chromium" && exec chromium

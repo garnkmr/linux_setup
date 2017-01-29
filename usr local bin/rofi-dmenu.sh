@@ -12,7 +12,7 @@ case "$cmd" in
 	"Lock")
 		xlock +usefirst ;;
 	"Terminal")
-		termite ;;
+		terminology ;;
 	"Chrome")
 		chromium ;;
 	"File Manager")
