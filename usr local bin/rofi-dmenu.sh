@@ -2,7 +2,7 @@
 
 #cmd=$(printf "poweroff\nreboot\nsuspend\nlock\nkillX\n" | rofi -dmenu "Execute:" $*)
 
-cmd=$(printf "Lock\nTerminal\nChrome\nFile Manager\nFile Search\nBrackets\nText Editor\nSoftware Manager\nDownload Manager\nTorrent Manager\n---------------\nReboot\nShutdown\n---------------" | rofi -dmenu -i -p "Execute : ")
+cmd=$(printf "Lock\nTerminal\nChrome\nMusic Player\nFile Manager\nFile Search\nBrackets\nText Editor\nSoftware Manager\nDownload Manager\nTorrent Manager\n---------------\nReboot\nShutdown\n---------------" | rofi -dmenu -i -p "Execute : ")
 
 if [ -z "$cmd" ]; then
 	exit 0
@@ -15,6 +15,8 @@ case "$cmd" in
 		terminology ;;
 	"Chrome")
 		chromium ;;
+    "Music Player")
+        guayadeque ;;
 	"File Manager")
 		rox ;;
 	"File Search")
