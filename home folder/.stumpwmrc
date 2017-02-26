@@ -40,7 +40,7 @@
 (setf *mode-line-pad-y* 1)
 (setf *mode-line-position* :bottom)
 (setf *mode-line-timeout* 10) ; Update every 10 seconds if nothing else has triggered it already.
-(setf *screen-mode-line-format* (list "[Workspace: %n] %w "))
+(setf *screen-mode-line-format* (list "[Workspace: %n] %v "))
 
 ;; Switch mode-line on only if needed. Found at:
 ;; http://hcl-club.lu/svn/development/lisp/.stumpwmrc
@@ -144,12 +144,12 @@
 ;    (run-shell-command stumpish))
 
 (define-key *root-map* (kbd "t") "terminology")
+(define-key *root-map* (kbd "T") "exec terminology")
 (define-key *root-map* (kbd "c") "chromium")
-(define-key *root-map* (kbd ".") "menu")
+(define-key *root-map* (kbd "d") "menu")
+(define-key *root-map* (kbd "D") "exec rofi -show run")
 (define-key *root-map* (kbd "q") "only")
 (define-key *root-map* (kbd "b") "brackets")
-(define-key *root-map* (kbd "T") "exec terminology")
-(define-key *root-map* (kbd "d") "exec rofi -show run")
 
 ;; Menu
 
@@ -172,6 +172,7 @@
                            ("Terminal" "terminology")
                            ("Browser" "chromium")
                            ("Brackets Editor" "brackets")
+                           ("File Manager" "nautilus")
                            ("---------------------")
                            ("Audio/Video >"
                             ("Music Player" "guayadeque")   
@@ -185,10 +186,6 @@
                             )
                            ("Graphics >"
                             ("GIMP" "gimp")
-                            )
-                           ("Mathematics >"
-                            ("Maxima" "wxmaxima")
-                            ("Sage" "urxvt +sb -fn \"xft:Bitstream Vera Sans Mono:pixelsize=20\" -e /home/bzimmerly/src/sage-5.6/sage")
                             )
                            ("Office Applications >"
                             ("ROX file manager" "rox")
@@ -265,9 +262,9 @@
 (define-key *top-map* (kbd "s-T") "exec terminology")
 (define-key *top-map* (kbd "s-c") "chromium")
 (define-key *top-map* (kbd "s-b") "brackets")
-(define-key *top-map* (kbd "s-d") "exec rofi -show run")
+(define-key *top-map* (kbd "s-D") "exec rofi -show run")
 
-(define-key *top-map* (kbd "s-.") "menu")
+(define-key *top-map* (kbd "s-d") "menu")
 (define-key *top-map* (kbd "s-1") "gselect 1")
 (define-key *top-map* (kbd "s-2") "gselect 2")
 (define-key *top-map* (kbd "s-3") "gselect 3")
