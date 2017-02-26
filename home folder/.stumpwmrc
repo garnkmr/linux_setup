@@ -20,7 +20,7 @@
 
 ;; Modules
 ;; (load "/opt/stumpwm/contrib/battery-portable.lisp")
-;(; load "/opt/stumpwm/contrib/amixer.lisp")
+;; (load "/opt/stumpwm/contrib/amixer.lisp")
 
 ;; Startup message
 (setf *startup-message* "O hey, Arun !")
@@ -34,19 +34,18 @@
 (setf *mode-line-background-color* "#000809")
 ;(setf *mode-line-border-color* "Black")
 (setf *window-name-source* :title)
-(setf *window-format* "%c")
+(setf *window-format* "^B%m%n^b %15c ")
 (setf *mode-line-border-width* 1)
 (setf *mode-line-pad-x* 1)
 (setf *mode-line-pad-y* 1)
 (setf *mode-line-position* :bottom)
 (setf *mode-line-timeout* 10) ; Update every 10 seconds if nothing else has triggered it already.
-(setf *screen-mode-line-format* (list "[Workspace: %n] %w"))
+(setf *screen-mode-line-format* (list "[Workspace: %n] %w "))
 
 ;; Switch mode-line on only if needed. Found at:
 ;; http://hcl-club.lu/svn/development/lisp/.stumpwmrc
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
-
 
 ;; Mouse and Fonts
 (run-shell-command "xsetroot -cursor_name left_ptr")
@@ -73,15 +72,27 @@
 (gnewbg "2")
 (gnewbg "3")
 (gnewbg "4")
+(gnewbg-float "floating")
+
+;(setf *mode-line-click-hook*
+;      (list (lambda (&rest rest)
+;                    (cond ((eq (second rest) 5)
+;                           (run-commands "gnext"))
+;                        ((eq (second rest) 4)
+;                         (run-commands "gprev"))))))
 
 ;; Commands
 
 (defcommand chromium () ()
     "run chromium"
+    (echo-string (current-screen) 
+                 "Starting Chromium")
     (run-or-raise "chromium" '(:instance "chromium")))
 
 (defcommand brackets () ()
     "run brackets"
+    (echo-string (current-screen) 
+                 "Starting Brackets")
     (run-or-raise "brackets" '(:instance "brackets")))
 
 (defcommand terminology () ()
@@ -138,6 +149,7 @@
 (define-key *root-map* (kbd "q") "only")
 (define-key *root-map* (kbd "b") "brackets")
 (define-key *root-map* (kbd "T") "exec terminology")
+(define-key *root-map* (kbd "d") "exec rofi -show run")
 
 ;; Menu
 
@@ -160,6 +172,7 @@
                            ("Terminal" "terminology")
                            ("Browser" "chromium")
                            ("Brackets Editor" "brackets")
+                           ("---------------------")
                            ("Audio/Video >"
                             ("Music Player" "guayadeque")   
                             ("Video Player" "vlc")
@@ -186,9 +199,10 @@
                            ("System Tools >"
                             ("Software Manager" "pamac-manager")
                             )
+                           ("---------------------")
+                           ("REBOOT" "reboot")
+                           ("SHUTDOWN" "shutdown -h now")
                            ("Lock" "xlock +usefirst")
-                           ("~~~  REBOOT ~~~" "reboot")
-                           ("~~~ SHUTDOWN ~~~" "shutdown -h now")
                            ))
 
 ;; Navigation
@@ -251,12 +265,14 @@
 (define-key *top-map* (kbd "s-T") "exec terminology")
 (define-key *top-map* (kbd "s-c") "chromium")
 (define-key *top-map* (kbd "s-b") "brackets")
+(define-key *top-map* (kbd "s-d") "exec rofi -show run")
 
 (define-key *top-map* (kbd "s-.") "menu")
 (define-key *top-map* (kbd "s-1") "gselect 1")
 (define-key *top-map* (kbd "s-2") "gselect 2")
 (define-key *top-map* (kbd "s-3") "gselect 3")
 (define-key *top-map* (kbd "s-4") "gselect 4")
+(define-key *top-map* (kbd "s-5") "gselect 5")
 ;(define-key *top-map* (kbd "s-`") "rotate-windows")
 (define-key *top-map* (kbd "s-s") "vsplit")
 (define-key *top-map* (kbd "s-S") "hsplit")
@@ -275,7 +291,7 @@
 (define-key *top-map* (kbd "XF86MonBrightnessDown") "DownBrightness")
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec pactl set-sink-volume 0 +5%")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "exec pactl set-sink-volume 0 -5%")
-(define-key *top-map* (kbd "XF86AudioMute") "exec pactl set-sink-mute 0 toggl-e")
+(define-key *top-map* (kbd "XF86AudioMute") "exec pactl set-sink-mute 0 toggle")
 
 
 
