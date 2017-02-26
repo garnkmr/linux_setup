@@ -1,0 +1,294 @@
+;;;; -*- Mode: Lisp -*-
+;;
+;; vim: filetype=lisp
+
+(in-package :stumpwm)
+
+;;;; change the prefix key to something else
+;(set-prefix-key (kbd "C-q"))
+
+;(run-shell-command "xmodmap -e 'keycode 115 = F20'" t)
+;(set-prefix-key (kbd "F20"))
+
+;; Prefix key
+(set-prefix-key (kbd "`"))
+
+;(set-font "-xos4-terminus-medium-r-normal--12-120-72-72-c-60-iso8859-1")
+(run-shell-command "nitrogen --set-centered ~/Pictures/Wallpapers/wallpaper-blue.jpg")
+(run-shell-command "~/.start_lemonbar_stump.sh")
+;(run-shell-command "fbpanel")
+
+;; Modules
+;; (load "/opt/stumpwm/contrib/battery-portable.lisp")
+;(; load "/opt/stumpwm/contrib/amixer.lisp")
+
+;; Startup message
+(setf *startup-message* "O hey, Arun !")
+
+;;;; Give enough space
+(resize-head 0 0 16 1366 752) ; for modeline
+;(resize-head 0 0 16 1366 732) ;for fbpanel
+
+;; Configure and start the modeline. Colors are handled above.
+(setf *mode-line-foreground-color* "DeepSkyBlue")
+(setf *mode-line-background-color* "#000809")
+;(setf *mode-line-border-color* "Black")
+(setf *window-name-source* :title)
+(setf *window-format* "%c")
+(setf *mode-line-border-width* 1)
+(setf *mode-line-pad-x* 1)
+(setf *mode-line-pad-y* 1)
+(setf *mode-line-position* :bottom)
+(setf *mode-line-timeout* 10) ; Update every 10 seconds if nothing else has triggered it already.
+(setf *screen-mode-line-format* (list "[Workspace: %n] %w"))
+
+;; Switch mode-line on only if needed. Found at:
+;; http://hcl-club.lu/svn/development/lisp/.stumpwmrc
+(if (not (head-mode-line (current-head)))
+    (toggle-mode-line (current-screen) (current-head)))
+
+
+;; Mouse and Fonts
+(run-shell-command "xsetroot -cursor_name left_ptr")
+(setf *mouse-focus-policy* :click)
+
+;;Windows and Messages
+(setf *message-window-gravity* :center)
+(setf *input-window-gravity* :center)
+(setf *window-border-style* :thin)
+(setf *normal-border-width* 0)
+(setf *maxsize-border-width* 0)
+(setf *transient-border-width* 0)
+(set-frame-outline-width 0)
+(set-fg-color "LightGrey")
+(set-bg-color "Black")
+(set-border-color "SlateGrey")
+(set-msg-border-width 5)
+(set-focus-color   "DarkRed")
+(set-unfocus-color "black")
+(set-normal-gravity :center)
+
+;;Groups
+(grename "1")
+(gnewbg "2")
+(gnewbg "3")
+(gnewbg "4")
+
+;; Commands
+
+(defcommand chromium () ()
+    "run chromium"
+    (run-or-raise "chromium" '(:instance "chromium")))
+
+(defcommand brackets () ()
+    "run brackets"
+    (run-or-raise "brackets" '(:instance "brackets")))
+
+(defcommand terminology () ()
+    "run terminology"
+    (run-or-raise "terminology" '(:instance "main")))
+
+(defcommand colon1 (&optional (initial "")) (:rest)
+    "For use with interactive commands."
+    (let ((cmd (read-one-line (current-screen) ": " :initial-input initial)))
+         (when cmd
+             (eval-command cmd t))))
+
+;; -brightness
+(defcommand UpBrightness () ()
+    "Turn up brightness"
+    (run-shell-command "exec xbacklight -inc 10"))
+
+(defcommand DownBrightness () ()
+    "Turn down brightness"
+    (run-shell-command "exec xbacklight -dec 10"))
+
+(defcommand goodnight () () ;;for use with acpid/XF86Sleep
+    "Display text"
+    (echo-string (current-screen)
+                 "Good night!"))
+
+(defcommand off () ()
+    "Display text"
+    (echo-string (current-screen)
+                 "Goodbye!")
+    (run-shell-command "exec sudo poweroff"))
+
+(defcommand reboot () ()
+    "Display text"
+    (echo-string (current-screen)
+                 "See ya!")
+    (run-shell-command "exec sudo reboot"))
+
+(defcommand snapshot () ()
+    "Display text"
+    (echo-string (current-screen)
+                 "Taking Snapshot")
+    (run-shell-command "exec scrot '%m.%d.%Y_%I:%M:%S_%P.png' -e 'mv $f ~/Pictures/snapshots'"))
+
+;(defparameter stumpish (concat term " -e /opt/stumpwm/contrib/stumpish")) 
+
+;(defcommand stumpish-terminal () ()
+;    "Display text"
+;    (run-shell-command stumpish))
+
+(define-key *root-map* (kbd "t") "terminology")
+(define-key *root-map* (kbd "c") "chromium")
+(define-key *root-map* (kbd ".") "menu")
+(define-key *root-map* (kbd "q") "only")
+(define-key *root-map* (kbd "b") "brackets")
+(define-key *root-map* (kbd "T") "exec terminology")
+
+;; Menu
+
+(defcommand menu () ()
+    "docstring"
+    (labels ((pick (options)
+                   (let ((selection (stumpwm::select-from-menu
+                                     (current-screen) options "")))
+                        (cond
+                            ((null selection)
+                             (throw 'stumpwm::error "Abort."))
+                            ((stringp (second selection))
+                             (second selection))
+                            (t
+                             (pick (cdr selection)))))))
+            (let ((choice (pick *start-menu*)))
+                 (run-shell-command choice))))
+
+(defparameter *start-menu* '(
+                           ("Terminal" "terminology")
+                           ("Browser" "chromium")
+                           ("Brackets Editor" "brackets")
+                           ("Audio/Video >"
+                            ("Music Player" "guayadeque")   
+                            ("Video Player" "vlc")
+                            ("Volume Control" "pavucontrol")
+                            )                       
+                           ("Internet >"
+                            ("Chrome" "chromium")
+                            ("Torrent Manager" "transmission-gtk")
+                            ("Download Manager" "uget-gtk")
+                            )
+                           ("Graphics >"
+                            ("GIMP" "gimp")
+                            )
+                           ("Mathematics >"
+                            ("Maxima" "wxmaxima")
+                            ("Sage" "urxvt +sb -fn \"xft:Bitstream Vera Sans Mono:pixelsize=20\" -e /home/bzimmerly/src/sage-5.6/sage")
+                            )
+                           ("Office Applications >"
+                            ("ROX file manager" "rox")
+                            ("Mousepad Editor" "mousepad")
+                            ("Libre Office" "libreoffice")
+                            ("File Search" "fsearch")
+                            )
+                           ("System Tools >"
+                            ("Software Manager" "pamac-manager")
+                            )
+                           ("Lock" "xlock +usefirst")
+                           ("~~~  REBOOT ~~~" "reboot")
+                           ("~~~ SHUTDOWN ~~~" "shutdown -h now")
+                           ))
+
+;; Navigation
+;; - swap windows
+(defun shift-windows-forward (frames win)
+    (when frames
+        (let ((frame (car frames)))
+             (shift-windows-forward (cdr frames)
+                                    (frame-window frame))
+             (when win
+                 (pull-window win frame)))))
+
+(defcommand rotate-windows () ()
+    "Display text"
+    (let* ((frames (group-frames (current-group)))
+           (win (frame-window (car (last frames)))))
+          (shift-windows-forward frames win)))
+
+(defcommand other-win () ()
+    "Display text"
+    (run-commands "other" "windows")) 
+
+(defcommand next-win () ()
+    "Display text"
+    (run-commands "next" "windows")) 
+
+(defcommand prev-win () ()
+    "Display text"
+    (run-commands "prev" "windows")) 
+
+;(defcommand next-in-frame-win () ()
+;  (run-commands "next-in-frame" (run-shell-command stumpwm:run-with-timer 1 () (run-shell-command "windows"))))
+
+(defcommand prev-in-frame-win () ()
+    "Display text"
+    (run-commands "prev-in-frame" "windows"))
+
+(defcommand toggle-full-layout () ()
+    "Display text"
+    (run-commands "only"))
+
+;; toggle between vertical split and horizontal split
+(defcommand toggle-split () ()
+    (let* ((group (current-group))
+           (cur-frame (tile-group-current-frame group))
+           (frames (group-frames group)))
+          (if (eq (length frames) 2)
+              (progn (if (or (neighbour :left cur-frame frames)
+                             (neighbour :right cur-frame frames))
+                         (progn
+                             (only)
+                             (vsplit))
+                         (progn
+                             (only)
+                             (hsplit))))
+              (message "Works only with 2 frames"))))
+
+;; win key binds
+(define-key *top-map* (kbd "s-t") "terminology")
+(define-key *top-map* (kbd "s-T") "exec terminology")
+(define-key *top-map* (kbd "s-c") "chromium")
+(define-key *top-map* (kbd "s-b") "brackets")
+
+(define-key *top-map* (kbd "s-.") "menu")
+(define-key *top-map* (kbd "s-1") "gselect 1")
+(define-key *top-map* (kbd "s-2") "gselect 2")
+(define-key *top-map* (kbd "s-3") "gselect 3")
+(define-key *top-map* (kbd "s-4") "gselect 4")
+;(define-key *top-map* (kbd "s-`") "rotate-windows")
+(define-key *top-map* (kbd "s-s") "vsplit")
+(define-key *top-map* (kbd "s-S") "hsplit")
+(define-key *top-map* (kbd "s-k") "delete")
+(define-key *top-map* (kbd "s-K") "kill")
+(define-key *top-map* (kbd "s-|") "toggle-split")
+
+(define-key *top-map* (kbd "s-Tab") "other-win")
+(define-key *top-map* (kbd "M-Tab") "next-win")
+(define-key *top-map* (kbd "M-ISO_Left_Tab") "prev-win")
+(define-key *top-map* (kbd "s-SPC") "next-in-frame-win")
+(define-key *top-map* (kbd "S-s-SPC") "prev-in-frame-win")
+(define-key *top-map* (kbd "s-q") "toggle-full-layout")
+
+(define-key *top-map* (kbd "XF86MonBrightnessUp") "UpBrightness")
+(define-key *top-map* (kbd "XF86MonBrightnessDown") "DownBrightness")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec pactl set-sink-volume 0 +5%")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec pactl set-sink-volume 0 -5%")
+(define-key *top-map* (kbd "XF86AudioMute") "exec pactl set-sink-mute 0 toggl-e")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;; EOF
