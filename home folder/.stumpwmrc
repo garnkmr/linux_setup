@@ -4,30 +4,25 @@
 
 (in-package :stumpwm)
 
-;;;; change the prefix key to something else
-;(set-prefix-key (kbd "C-q"))
+;; Prefix key
+(set-prefix-key (kbd "`"))
 
 ;(run-shell-command "xmodmap -e 'keycode 115 = F20'" t)
 ;(set-prefix-key (kbd "F20"))
 
-;; Prefix key
-(set-prefix-key (kbd "`"))
-
-;(set-font "-xos4-terminus-medium-r-normal--12-120-72-72-c-60-iso8859-1")
+(setf *startup-message* "O hey, Arun !")
+(set-font "*-*-fixed-medium-r-*-*-*-110-*-*-*-*-iso8859-1")
 (run-shell-command "nitrogen --set-centered ~/Pictures/Wallpapers/wallpaper-blue.jpg")
 (run-shell-command "~/.start_lemonbar_stump.sh")
 ;(run-shell-command "fbpanel")
+(resize-head 0 0 16 1366 752) ; for modeline
+;(resize-head 0 0 16 1366 732) ;for fbpanel
+(run-shell-command "xsetroot -cursor_name left_ptr")
+(setf *mouse-focus-policy* :click)
 
 ;; Modules
 ;; (load "/opt/stumpwm/contrib/battery-portable.lisp")
 ;; (load "/opt/stumpwm/contrib/amixer.lisp")
-
-;; Startup message
-(setf *startup-message* "O hey, Arun !")
-
-;;;; Give enough space
-(resize-head 0 0 16 1366 752) ; for modeline
-;(resize-head 0 0 16 1366 732) ;for fbpanel
 
 ;; Configure and start the modeline. Colors are handled above.
 (setf *mode-line-foreground-color* "DeepSkyBlue")
@@ -40,16 +35,12 @@
 (setf *mode-line-pad-y* 1)
 (setf *mode-line-position* :bottom)
 (setf *mode-line-timeout* 10) ; Update every 10 seconds if nothing else has triggered it already.
-(setf *screen-mode-line-format* (list "[Workspace: %n] %v "))
+(setf *screen-mode-line-format* (list "[ Workspace: %n ] %v "))
 
 ;; Switch mode-line on only if needed. Found at:
 ;; http://hcl-club.lu/svn/development/lisp/.stumpwmrc
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
-
-;; Mouse and Fonts
-(run-shell-command "xsetroot -cursor_name left_ptr")
-(setf *mouse-focus-policy* :click)
 
 ;;Windows and Messages
 (setf *message-window-gravity* :center)
@@ -59,11 +50,11 @@
 (setf *maxsize-border-width* 0)
 (setf *transient-border-width* 0)
 (set-frame-outline-width 0)
-(set-fg-color "LightGrey")
-(set-bg-color "Black")
-(set-border-color "SlateGrey")
-(set-msg-border-width 5)
-(set-focus-color   "DarkRed")
+(set-fg-color "Black")
+(set-bg-color "PapayaWhip")
+(set-border-color "Black")
+(set-msg-border-width 2)
+(set-focus-color   "Red")
 (set-unfocus-color "black")
 (set-normal-gravity :center)
 
@@ -74,6 +65,15 @@
 (gnewbg "4")
 (gnewbg-float "floating")
 
+(define-key *root-map* (kbd "t") "terminology")
+(define-key *root-map* (kbd "T") "exec terminology")
+(define-key *root-map* (kbd "c") "chromium")
+(define-key *root-map* (kbd "d") "menu")
+(define-key *root-map* (kbd "D") "exec rofi -show run")
+(define-key *root-map* (kbd "q") "only")
+(define-key *root-map* (kbd "b") "brackets")
+(define-key *root-map* (kbd "'") "list-windows")
+
 ;(setf *mode-line-click-hook*
 ;      (list (lambda (&rest rest)
 ;                    (cond ((eq (second rest) 5)
@@ -82,7 +82,6 @@
 ;                         (run-commands "gprev"))))))
 
 ;; Commands
-
 (defcommand chromium () ()
     "run chromium"
     (echo-string (current-screen) 
@@ -105,7 +104,6 @@
          (when cmd
              (eval-command cmd t))))
 
-;; -brightness
 (defcommand UpBrightness () ()
     "Turn up brightness"
     (run-shell-command "exec xbacklight -inc 10"))
@@ -142,14 +140,6 @@
 ;(defcommand stumpish-terminal () ()
 ;    "Display text"
 ;    (run-shell-command stumpish))
-
-(define-key *root-map* (kbd "t") "terminology")
-(define-key *root-map* (kbd "T") "exec terminology")
-(define-key *root-map* (kbd "c") "chromium")
-(define-key *root-map* (kbd "d") "menu")
-(define-key *root-map* (kbd "D") "exec rofi -show run")
-(define-key *root-map* (kbd "q") "only")
-(define-key *root-map* (kbd "b") "brackets")
 
 ;; Menu
 
@@ -241,6 +231,34 @@
     "Display text"
     (run-commands "only"))
 
+(defcommand list-windows () ()
+    "Display text"
+    (run-commands "windowlist"))
+
+(defcommand focus-up () ()
+    "Display text"
+    (run-commands "move-focus up"))
+
+(defcommand focus-down () ()
+    "Display text"
+    (run-commands "move-focus down"))
+
+(defcommand focus-left () ()
+    "Display text"
+    (run-commands "move-focus left"))
+
+(defcommand focus-right () ()
+    "Display text"
+    (run-commands "move-focus right"))
+
+(defcommand view-groups () ()
+    "Display text"
+    (run-commands "vgroups"))
+
+(defcommand list-groups () ()
+    "Display text"
+    (run-commands "grouplist"))
+
 ;; toggle between vertical split and horizontal split
 (defcommand toggle-split () ()
     (let* ((group (current-group))
@@ -275,12 +293,21 @@
 (define-key *top-map* (kbd "s-S") "hsplit")
 (define-key *top-map* (kbd "s-k") "delete")
 (define-key *top-map* (kbd "s-K") "kill")
+(define-key *top-map* (kbd "s-g") "view-groups")
+(define-key *top-map* (kbd "s-G") "list-groups")
 (define-key *top-map* (kbd "s-|") "toggle-split")
 
+(define-key *top-map* (kbd "s-Up") "focus-up")
+(define-key *top-map* (kbd "s-Down") "focus-down")
+(define-key *top-map* (kbd "s-Left") "focus-left")
+(define-key *top-map* (kbd "s-Right") "focus-right")
+
+(define-key *top-map* (kbd "s-w") "list-windows")
+(define-key *top-map* (kbd "s-'") "list-windows")
 (define-key *top-map* (kbd "s-Tab") "other-win")
 (define-key *top-map* (kbd "M-Tab") "next-win")
 (define-key *top-map* (kbd "M-ISO_Left_Tab") "prev-win")
-(define-key *top-map* (kbd "s-SPC") "next-in-frame-win")
+(define-key *top-map* (kbd "s-SPC") "next-win")
 (define-key *top-map* (kbd "S-s-SPC") "prev-in-frame-win")
 (define-key *top-map* (kbd "s-q") "toggle-full-layout")
 
