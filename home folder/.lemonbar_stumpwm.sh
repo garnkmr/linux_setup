@@ -14,13 +14,21 @@ Battery() {
 
 RAM() {
     USEDRAM=$(free -h |xargs| awk '{print $9}')
-    FREERAM=$(free -h |xargs| awk '{print $10}')
+    # FREERAM=$(free -h |xargs| awk '{print $10}')
     TOTALRAM=$(free -h |xargs| awk '{print $8}')
-    echo "$USEDRAM / $FREERAM / $TOTALRAM"
+    echo "$USEDRAM / $TOTALRAM"
+}
+
+HDD() {
+    ROOT_AVAIL=$(df -h | sed -n '4p' | awk {'print $2'})
+    ROOT_USED=$(df -h | sed -n '4p' | awk {'print $3'})
+    HOME_AVAIL=$(df -h | sed -n '8p' | awk {'print $2'})
+    HOME_USED=$(df -h | sed -n '8p' | awk {'print $3'})
+    echo "$ROOT_USED/$ROOT_AVAIL - $HOME_USED/$HOME_AVAIL"
 }
 
 Wifi() {
-    WIFISTATE=$(nmcli | grep wlp3s0 |cut -d':' -f2)
+    WIFISTATE=$(nmcli | grep wlp3s0 |cut -d':' -f2 | sed -n '1p')
     echo "$WIFISTATE"
 }
 
@@ -46,6 +54,7 @@ while :; do
     buf="${buf} ◐ $(Brightness) %"
     buf="${buf} ♥ $(Battery)"
     buf="${buf} %{l} RAM: $(RAM) | "
+    buf="${buf} ☱ $(HDD) | "
     buf="${buf} ◢ $(Wifi) "
     echo $buf
     
