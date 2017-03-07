@@ -12,6 +12,7 @@
 
 (setf *startup-message* "O hey, Arun !")
 (set-font "*-*-fixed-medium-r-*-*-*-110-*-*-*-*-iso8859-1")
+;(run-shell-command "gnome-session")
 (run-shell-command "nitrogen --set-centered ~/Pictures/Wallpapers/wallpaper-blue.jpg")
 (run-shell-command "~/.start_lemonbar_stump.sh")
 ;(run-shell-command "fbpanel")
@@ -27,7 +28,7 @@
 ;; Configure and start the modeline. Colors are handled above.
 (setf *mode-line-foreground-color* "DeepSkyBlue")
 (setf *mode-line-background-color* "#000809")
-;(setf *mode-line-border-color* "Black")
+(setf *mode-line-border-color* "Black")
 (setf *window-name-source* :title)
 (setf *window-format* "^B%m%n^b %15c ")
 (setf *mode-line-border-width* 1)
@@ -37,8 +38,8 @@
 (setf *mode-line-timeout* 10) ; Update every 10 seconds if nothing else has triggered it already.
 (setf *screen-mode-line-format* (list "[ Workspace: %n ] %v "))
 
-;; Switch mode-line on only if needed. Found at:
-;; http://hcl-club.lu/svn/development/lisp/.stumpwmrc
+; Switch mode-line on only if needed. Found at:
+; http://hcl-club.lu/svn/development/lisp/.stumpwmrc
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
 
@@ -180,11 +181,14 @@
                            ("Office Applications >"
                             ("ROX file manager" "rox")
                             ("Mousepad Editor" "mousepad")
+                            ("Ebook Reader" "fbreader")
                             ("Libre Office" "libreoffice")
                             ("File Search" "fsearch")
                             )
                            ("System Tools >"
                             ("Software Manager" "pamac-manager")
+                            ("Software Updater" "pamac-updater")
+                            ("Disk Usage Analyzer" "baobab")
                             )
                            ("---------------------")
                            ("REBOOT" "reboot")
@@ -296,6 +300,8 @@
 (define-key *top-map* (kbd "s-g") "view-groups")
 (define-key *top-map* (kbd "s-G") "list-groups")
 (define-key *top-map* (kbd "s-|") "toggle-split")
+(define-key *top-map* (kbd "s-r") "iresize")
+(define-key *top-map* (kbd "s--") "fclear")
 
 (define-key *top-map* (kbd "s-Up") "focus-up")
 (define-key *top-map* (kbd "s-Down") "focus-down")
