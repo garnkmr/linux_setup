@@ -7,9 +7,6 @@
 ;; Prefix key
 (set-prefix-key (kbd "`"))
 
-;(run-shell-command "xmodmap -e 'keycode 115 = F20'" t)
-;(set-prefix-key (kbd "F20"))
-
 (setf *startup-message* "O hey, Arun !")
 (set-font "*-*-fixed-medium-r-*-*-*-110-*-*-*-*-iso8859-1")
 ;(run-shell-command "gnome-session")
@@ -36,7 +33,13 @@
 (setf *mode-line-pad-y* 1)
 (setf *mode-line-position* :bottom)
 (setf *mode-line-timeout* 10) ; Update every 10 seconds if nothing else has triggered it already.
-(setf *screen-mode-line-format* (list "[ Workspace: %n ] %v "))
+
+(setf *screen-mode-line-format*
+      '("[ Workspace : %n ] %v"
+        "^>"
+        (:eval (stumpwm:run-shell-command "cmus-remote -Q | sed -n 2p | sed 's:.*/::'" t))
+        )
+      )
 
 ; Switch mode-line on only if needed. Found at:
 ; http://hcl-club.lu/svn/development/lisp/.stumpwmrc
@@ -143,7 +146,6 @@
 ;    (run-shell-command stumpish))
 
 ;; Menu
-
 (defcommand menu () ()
     "docstring"
     (labels ((pick (options)
@@ -160,41 +162,45 @@
                  (run-shell-command choice))))
 
 (defparameter *start-menu* '(
-                           ("Terminal" "terminology")
-                           ("Browser" "chromium")
-                           ("Brackets Editor" "brackets")
-                           ("File Manager" "nautilus")
-                           ("---------------------")
-                           ("Audio/Video >"
-                            ("Music Player" "guayadeque")   
-                            ("Video Player" "vlc")
-                            ("Volume Control" "pavucontrol")
-                            )                       
-                           ("Internet >"
-                            ("Chrome" "chromium")
-                            ("Torrent Manager" "transmission-gtk")
-                            ("Download Manager" "uget-gtk")
-                            )
-                           ("Graphics >"
-                            ("GIMP" "gimp")
-                            )
-                           ("Office Applications >"
-                            ("ROX file manager" "rox")
-                            ("Mousepad Editor" "mousepad")
-                            ("Ebook Reader" "fbreader")
-                            ("Libre Office" "libreoffice")
-                            ("File Search" "fsearch")
-                            )
-                           ("System Tools >"
-                            ("Software Manager" "pamac-manager")
-                            ("Software Updater" "pamac-updater")
-                            ("Disk Usage Analyzer" "baobab")
-                            )
-                           ("---------------------")
-                           ("REBOOT" "reboot")
-                           ("SHUTDOWN" "shutdown -h now")
-                           ("Lock" "xlock +usefirst")
-                           ))
+                             ("Terminal" "terminology")
+                             ("Browser" "chromium")
+                             ("Brackets Editor" "brackets")
+                             ("File Manager" "nautilus")
+                             ("---------------------")
+                             ("Play/Pause" "cmus-remote -u")   
+                             ("Play Next" "cmus-remote -n")
+                             ("Play Prev" "cmus-remote -r")
+                             ("---------------------")
+                             ("Audio/Video >"
+                              ("Music Player" "guayadeque")   
+                              ("Video Player" "vlc")
+                              ("Volume Control" "pavucontrol")
+                              )                       
+                             ("Internet >"
+                              ("Chrome" "chromium")
+                              ("Torrent Manager" "transmission-gtk")
+                              ("Download Manager" "uget-gtk")
+                              )
+                             ("Graphics >"
+                              ("GIMP" "gimp")
+                              )
+                             ("Office Applications >"
+                              ("ROX file manager" "rox")
+                              ("Mousepad Editor" "mousepad")
+                              ("Ebook Reader" "fbreader")
+                              ("Libre Office" "libreoffice")
+                              ("File Search" "fsearch")
+                              )
+                             ("System Tools >"
+                              ("Software Manager" "pamac-manager")
+                              ("Software Updater" "pamac-updater")
+                              ("Disk Usage Analyzer" "baobab")
+                              )
+                             ("---------------------")
+                             ("REBOOT" "reboot")
+                             ("SHUTDOWN" "shutdown -h now")
+                             ("Lock" "xlock +usefirst")
+                             ))
 
 ;; Navigation
 ;; - swap windows
