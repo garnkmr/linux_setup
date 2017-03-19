@@ -1,0 +1,41 @@
+[?25l[?7l[0m[36m[1m              `.-/::/-`` 
+            .-/osssssssso/. 
+           :osyysssssssyyys+- 
+        `.+yyyysssssssssyyyyy+. 
+       `/syyyyyssssssssssyyyyys-` 
+      `/yhyyyyysss[0m[34m[1m++[0m[36m[1mssosyyyyhhy/` 
+     .ohhhyyyys[0m[34m[1mo++/+o[0m[36m[1mso[0m[34m[1m+[0m[36m[1msyy[0m[34m[1m+[0m[36m[1mshhhho. 
+    .shhhhys[0m[34m[1moo++//+[0m[36m[1msss[0m[34m[1m+++[0m[36m[1myyy[0m[34m[1m+s[0m[36m[1mhhhhs. 
+   -yhhhhs[0m[34m[1m+++++++o[0m[36m[1mssso[0m[34m[1m+++[0m[36m[1myyy[0m[34m[1ms+o[0m[36m[1mhhddy: 
+  -yddhhy[0m[34m[1mo+++++o[0m[36m[1msyyss[0m[34m[1m++++[0m[36m[1myyy[0m[34m[1myooy[0m[36m[1mhdddy- 
+ .yddddhs[0m[34m[1mo++o[0m[36m[1msyyyyys[0m[34m[1m+++++[0m[36m[1myyhh[0m[34m[1msos[0m[36m[1mhddddy` 
+`odddddhyosyhyyyyyy[0m[34m[1m++++++[0m[36m[1myhhhyosddddddo 
+.dmdddddhhhhhhhyyyo[0m[34m[1m+++++[0m[36m[1mshhhhhohddddmmh. 
+ddmmdddddhhhhhhhso[0m[34m[1m++++++[0m[36m[1myhhhhhhdddddmmdy 
+dmmmdddddddhhhyso[0m[34m[1m++++++[0m[36m[1mshhhhhddddddmmmmh 
+-dmmmdddddddhhys[0m[34m[1mo++++o[0m[36m[1mshhhhdddddddmmmmd- 
+.smmmmddddddddhhhhhhhhhdddddddddmmmms. 
+   `+ydmmmdddddddddddddddddddmmmmdy/. 
+      `.:+ooyyddddddddddddyyso+:.` 
+[19A[9999999D[43C[0m[1m[34m[1marun[0m@[34m[1mgak[0m 
+[43C[0m--------[0m 
+[43C[0m[36m[1mOS[0m[0m:[0m Antergos Linux x86_64[0m 
+[43C[0m[36m[1mModel[0m[0m:[0m 20B7A1HSIG ThinkPad T440[0m 
+[43C[0m[36m[1mKernel[0m[0m:[0m 4.10.3-1-ARCH[0m 
+[43C[0m[36m[1mUptime[0m[0m:[0m 11 hours, 16 mins[0m 
+[43C[0m[36m[1mPackages[0m[0m:[0m 1048[0m 
+[43C[0m[36m[1mShell[0m[0m:[0m zsh 5.3.1[0m 
+[43C[0m[36m[1mResolution[0m[0m:[0m 1366x768[0m 
+[43C[0m[36m[1mWM[0m[0m:[0m stumpwm[0m 
+[43C[0m[36m[1mTheme[0m[0m:[0m Numix-Frost-Light [GTK2/3][0m 
+[43C[0m[36m[1mIcons[0m[0m:[0m Numix-Light [GTK2/3][0m 
+[43C[0m[36m[1mTerminal[0m[0m:[0m terminology[0m 
+[43C[0m[36m[1mTerminal Font[0m[0m:[0m DejaVu Sans Mono[0m 
+[43C[0m[36m[1mCPU[0m[0m:[0m Intel i5-4300U (4) @ 2.9GHz[0m 
+[43C[0m[36m[1mGPU[0m[0m:[0m Intel Integrated Graphics[0m 
+[43C[0m[36m[1mMemory[0m[0m:[0m 1031MiB / 7678MiB[0m 
+
+[43C[0m[30m[40m   [0m[31m[41m   [0m[32m[42m   [0m[33m[43m   [0m[34m[44m   [0m[35m[45m   [0m[36m[46m   [0m[37m[47m   [0m
+
+
+[?25h[?7h

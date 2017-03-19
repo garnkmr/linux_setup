@@ -1,0 +1,40 @@
+todo:
+	automount usb
+
+sudo dd bs=4M if=/path/to/antergos-x86_64.iso of=/dev/sdX && sync
+
+xbacklight -set 30
+xbacklight -set 10
+
+nmcli dev wifi
+nmcli dev wifi connect gak_letv
+
+upower --enumerate
+upower -i $(upower -e | grep BAT) | grep --color=never -E "state|to\ full|to\ empty|percentage"
+upower -i $(upower -e | grep BAT) | grep --color=never -E percentage|xargs|cut -d' ' -f2|sed s/%//
+
+./lemonbar.sh| lemonbar -p -d -f "FontAwesome:size=8"
+
+/home/arun/.gem/ruby/2.3.0/gems/barr-0.2.3/examples
+
+dmesg
+
+as root:
+	mount /dev/sdb1 /mnt/usb
+
+pacman --query --list cmus 
+pacman -Qei | awk '/^Name/ { name=$3 } /^Groups/ { if ( $3 != "base" && $3 != "base-devel" ) { print name } }'
+
+if nmcli fails to connect with secret error
+	killall wpa_supplicant
+
+live traffic:
+	vnstat -i wlp3s0 -l
+
+systemctl status plexmediaserver.service
+
+youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 https://www.youtube.com/watch\?v\=o3aSMO-oGRo
+youtube-dl -F https://www.youtube.com/watch\?v\=bmECR_eHN1k
+youtube-dl -f 22 https://www.youtube.com/watch\?v\=bmECR_eHN1k
+
+installed apps list > sudo pacman -Qe

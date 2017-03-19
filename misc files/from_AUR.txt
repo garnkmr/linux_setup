@@ -1,0 +1,24 @@
+local/brackets 1.8-1
+local/cl-ppcre 2.0.11-1
+local/clx-git r273.60b7c4b-1
+local/fsearch-git r294.dfbda67-1
+local/gnome-mpv 0.11-1
+local/gnome-shell-extension-mediaplayer-git r628.4317d19-1
+local/gstreamer0.10-bad-plugins 0.10.23-36 (gstreamer0.10-plugins)
+local/gstreamer0.10-base-plugins 0.10.36-9 (gstreamer0.10-plugins)
+local/gstreamer0.10-ffmpeg 0.10.13-9 (gstreamer0.10-plugins)
+local/gstreamer0.10-good-plugins 0.10.31-27 (gstreamer0.10-plugins)
+local/gstreamer0.10-ugly-plugins 0.10.19-27 (gstreamer0.10-plugins)
+local/guayadeque 0.4.5-1
+local/lemonbar-xft-git 268.043ad47-1
+local/libcs50-git r137.8a353ba-1
+local/libgnomeui 2.24.5-2
+local/links-g-directfb 2.14-1
+local/lostfiles 3.26-1
+local/neofetch-git 3.0.r82.g59cc08e-1
+local/oh-my-zsh-git r4285.ff5629e6-1
+local/pacli 0.9.1-1
+local/stumpwm-git 1.0.0.83.gef2af35-1
+local/torrent-search 0.11.2-2
+local/wmail-bin 2.3.1-1
+

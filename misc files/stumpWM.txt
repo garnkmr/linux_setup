@@ -1,0 +1,27 @@
+sbcl
+clx-git
+stumpwm-git
+
+
+
+(run-shell-command "xmodmap -e \'keycode 115 = F20\'" t)
+(set-prefix-key (kbd "F20"))
+
+
+
+In .xsession, I put
+
+xmodmap -e "clear mod4"
+xmodmap -e "keycode 133 = hstroke"
+
+And in .stumpwmrc I put
+
+(set-prefix-key (stumpwm:kbd "hstroke"))
+
+
+;; Change the prefix key
+;; keycode 115 = F20 in ~/.xmodmaprc, 115 being the left "windows" key.
+(set-prefix-key (kbd "F20"))
+
+
+use lxappearance to set gtk theme numix
